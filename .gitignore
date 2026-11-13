@@ -1,0 +1,9 @@
+# Dossier de travail de Terraform
+.terraform/
+
+# Etat de Terraform : jamais dans Git
+*.tfstate
+*.tfstate.*
+
+# Journaux de plantage
+crash.log
