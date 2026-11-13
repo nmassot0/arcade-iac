@@ -4,6 +4,11 @@ resource "docker_image" "web" {
   keep_locally = true
 }
 
+# Un volume : un espace de stockage qui survit aux conteneurs.
+resource "docker_volume" "records" {
+  name = "arcade-records"
+}
+
 # Une borne (un conteneur) par ligne de la variable « bornes ».
 resource "docker_container" "borne" {
   for_each = var.bornes
@@ -19,6 +24,12 @@ resource "docker_container" "borne" {
     ip       = "127.0.0.1"
   }
 
+  # Le dossier records/ du site est rangé dans le volume.
+  volumes {
+    volume_name    = docker_volume.records.name
+    container_path = "/usr/share/nginx/html/records"
+  }
+  
   # Les trois fichiers du jeu, copiés dans le conteneur.
   # source_hash : si un fichier change, Terraform le voit.
   upload {
