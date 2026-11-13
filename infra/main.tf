@@ -29,7 +29,7 @@ resource "docker_container" "borne" {
     volume_name    = docker_volume.records.name
     container_path = "/usr/share/nginx/html/records"
   }
-  
+
   # Les trois fichiers du jeu, copiés dans le conteneur.
   # source_hash : si un fichier change, Terraform le voit.
   upload {
@@ -47,4 +47,9 @@ resource "docker_container" "borne" {
     source      = "${path.module}/../app/game.js"
     source_hash = filesha256("${path.module}/../app/game.js")
   }
+  upload {
+    file    = "/usr/share/nginx/html/borne.txt"
+    content = upper("BORNE ${each.key}")
+  }
+
 }

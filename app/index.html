@@ -33,7 +33,7 @@
         </section>
 
     <footer class="pied">
-      <span>© Pixel Rétro</span>
+      <span id="nom-borne"></span>
       <span id="version">v1.2</span>
     </footer>
   </main>
@@ -44,5 +44,10 @@
       .then(function (reponse) { if (reponse.ok) return reponse.text(); })
       .then(function (texte) { if (texte) document.getElementById("honneur").textContent = texte; });
     </script>
+    <script>
+  fetch("borne.txt", { cache: "no-store" })
+    .then(function (reponse) { if (reponse.ok) return reponse.text(); })
+    .then(function (texte) { if (texte) document.getElementById("nom-borne").textContent = texte; });
+</script>
 </body>
 </html>
